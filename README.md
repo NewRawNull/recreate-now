@@ -1,36 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recreate NOW
 
-## Getting Started
+_"For extroverted, low-attention span, hyperflexing stakeholders"_
 
-First, run the development server:
+**R-NOW** is a personal media and lifestyle tracker where users can log and rate movies, music albums, food-related topics, and other activities — all in one place, with a clean public profile to share with others. This application's sole responsibility is to **force** users to do recreational activities outside of work hours. Users will be able to track their's and other's progress in gaining all types of recreational activities listed below:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Movies
+- Music albums or titles
+- Food recipes and food stops
+- Recreational Projects
+  - Software Projects
+  - Art Projects
+  - Multimedia Projects
+  - and more...
+- Attended conventions — concerts, sport venues, etc.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Rest assured that by using this application, you can not just be active on your everyday life but also provide involuntary connections with different people in this platform.

@@ -5,6 +5,16 @@
   --foreground: #171717;
 }
 
+@theme {
+  --color-brand-yellow: #ffd150;
+  --color-brand-green: #458b73;
+  --color-brand-pink: #f26076;
+  --color-brand-darkyellow: #c09c3b;
+  --font-ibm-plex-mono: var(--font-ibm-plex-mono);
+  --font-roboto: var(--font-roboto);
+  --font-roboto-condensed: var(--font-roboto-condensed);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
