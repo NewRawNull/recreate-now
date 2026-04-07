@@ -21,12 +21,12 @@ export default function PostObject({
           <p className="tracking-wide text-gray-800">{description}</p>
         )}
         {image && (
-          <div className="aspect-video relative w-full">
+          <div className="aspect-video relative">
             <Image
               src={image}
               alt={`Image posted by ${author}... unloaded unfortunately`}
               fill
-              className="object-cover rounded"
+              className="object-contain rounded"
             />
           </div>
         )}

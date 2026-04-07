@@ -1,4 +1,5 @@
-import type { PostItem } from "@/app/_lib/definitions";
+import type { PostItem, dbUser } from "@/app/_lib/definitions";
+import bcrypt from "bcrypt";
 
 export const samplePosts: PostItem[] = [
   {
@@ -44,5 +45,60 @@ export const samplePosts: PostItem[] = [
         reacts: { likes: 31, dislikes: 7 },
       },
     ],
+  },
+  {
+    id: "149fe8a2-c945-4f57-86ca-74f6b5ee564a",
+    author: "Sophia Leningrad",
+    description:
+      "Warning to anyone reading!!! \n Never and I mean EVER, place your trust with Arthur Leningrad. He is a big bad cheater who he literally had fun with multiple girls in the club. Please for the love of mother mary, never listen to him PLEASE!!!!",
+    image: "/images/posts/arthur_leningrad.png",
+    reacts: { boring: 55, crying: 47, laughing: 1, angry: 32 },
+    comments: [
+      {
+        author: "Arthur Leningrad",
+        comment: "But people love me though",
+        reacts: { likes: 22, dislikes: 21 },
+      },
+      {
+        author: "Drake John Paul",
+        comment: "Duly noted! 😅😁",
+        reacts: { likes: 55 },
+      },
+      {
+        author: "Kyle Montenegro",
+        comment:
+          "Well I mean there are people that genuinely cheat due to their abusive love ones. Probably could be the case 🤔",
+        reacts: { likes: 22, dislikes: 23 },
+      },
+      {
+        author: "Antonio Mercedes Benito",
+        comment:
+          "WTH ARE THESE COMMENTS. You guys are SICK!!! Especially this Arthur guy...",
+        reacts: { likes: 122, dislikes: 22 },
+      },
+    ],
+  },
+];
+
+// The following will be used for the database...
+export const users: Omit<dbUser, "id">[] = [
+  { name: "Arthur Leningrad", password_hash: "i_am_pogi" },
+  { name: "Marcus Delgado", password_hash: "cats_are_amazing" },
+  { name: "Yuki Nakamura", password_hash: "yuki_nakamura" },
+  {
+    name: "Sophia Leningrad",
+    password_hash: "arthur_my_love",
+  },
+  {
+    name: "Jenny Tran",
+    password_hash: "my_name_is_inspired_by_minecraft",
+  },
+  { name: "Carlos Reyes", password_hash: "carlos_reyes_pogi" },
+  { name: "Brett Wilson", password_hash: "2983ucr92r" },
+  { name: "Drake John Paul", password_hash: "drake" },
+  { name: "Kyle Montenegro", password_hash: "cheater_for_life" },
+  {
+    name: "Antonio Mercedes Benito",
+    password_hash: "the_intellectual_property",
   },
 ];

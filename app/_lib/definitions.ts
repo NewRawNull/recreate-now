@@ -16,6 +16,7 @@ export type FunctionBarLink = {
 export type FunctionBarLinks = FunctionBarLink[];
 
 /* Post Definitions */
+/* TODO: Remove Reacts, SubReacts, Comment, and PostItem once database integrated */
 
 export type Reacts = {
   likes?: number;
@@ -46,4 +47,48 @@ export type PostItem = {
   image?: string;
   reacts?: Reacts;
   comments?: Comment[];
+};
+
+/* Database types */
+/* Thought process? Should I use NoSQL instead of this Goofy Ahh database */
+export type dbUser = {
+  id: string;
+  name: string;
+  password_hash: string;
+};
+
+export type dbPost = {
+  id: string;
+  author_id: string; // FOREIGN => dbUser.id
+  description?: string;
+  image?: string;
+};
+
+export type dbComment = {
+  id: string;
+  author_id: string; // FOREIGN => dbUser.id
+  post_id: string; // FOREIGN => dbPost.id
+  description: string;
+  created_at: Date;
+};
+
+export type dbPostReaction = {
+  id: string;
+  post_id: string; // FOREIGN => dbPost.id
+  user_id: string; // FOREIGN => dbUser.id
+  type:
+    | "like"
+    | "dislike"
+    | "crying"
+    | "laughing"
+    | "vomiting"
+    | "angry"
+    | "boring";
+};
+
+export type dbCommentReaction = {
+  id: string;
+  comment_id: string; // FOREIGN => dbComment.id
+  user_id: string; // FOREIGN => dbUser.id
+  type: "like" | "dislike";
 };
