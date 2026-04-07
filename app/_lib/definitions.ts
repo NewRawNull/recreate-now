@@ -51,28 +51,27 @@ export type PostItem = {
 
 /* Database types */
 /* Thought process? Should I use NoSQL instead of this Goofy Ahh database */
-export type dbUser = {
+export type DbUser = {
   id: string;
   name: string;
   password_hash: string;
 };
 
-export type dbPost = {
+export type DbPost = {
   id: string;
   author_id: string; // FOREIGN => dbUser.id
   description?: string;
   image?: string;
 };
 
-export type dbComment = {
+export type DbComment = {
   id: string;
   author_id: string; // FOREIGN => dbUser.id
   post_id: string; // FOREIGN => dbPost.id
   description: string;
-  created_at: Date;
 };
 
-export type dbPostReaction = {
+export type DbPostReaction = {
   id: string;
   post_id: string; // FOREIGN => dbPost.id
   user_id: string; // FOREIGN => dbUser.id
@@ -86,7 +85,7 @@ export type dbPostReaction = {
     | "boring";
 };
 
-export type dbCommentReaction = {
+export type DbCommentReaction = {
   id: string;
   comment_id: string; // FOREIGN => dbComment.id
   user_id: string; // FOREIGN => dbUser.id

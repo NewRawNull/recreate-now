@@ -1,5 +1,5 @@
 import CloseButton from "@/app/_ui/mainfeed/close-popup";
-import { samplePosts } from "@/app/_lib/mockData";
+import { samplePosts } from "@/app/_lib/mock-data";
 import CommentBlock from "@/app/_ui/mainfeed/comment";
 
 export default async function PopupElement({

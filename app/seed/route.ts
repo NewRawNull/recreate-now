@@ -1,5 +1,5 @@
 import sql from "@/app/_lib/db";
-import { users } from "@/app/_lib/mockData";
+import { comments, postReactions, posts, users } from "@/app/_lib/mock-data";
 import bcrypt from "bcrypt";
 
 // NOTE: ONLY RUN localhost:3000/seed ONCE
@@ -11,14 +11,84 @@ async function seedUsers() {
     password TEXT NOT NULL
   );`;
 
-  users.map(async (user) => {
-    const hashedPassword = await bcrypt.hash(user.password_hash, 10);
-    await sql`
-        INSERT INTO Users (name, password)
-        VALUES (${user.name}, ${hashedPassword})
-        ON CONFLICT DO NOTHING
+  await Promise.all(
+    users.map(async (user) => {
+      const hashedPassword = await bcrypt.hash(user.password_hash, 10);
+      await sql`
+        INSERT INTO Users (id, name, password)
+        VALUES (${user.id}, ${user.name}, ${hashedPassword})
+        ON CONFLICT (id) DO NOTHING
       `;
-  });
+    }),
+  );
+}
+
+async function seedPosts() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS Posts (
+      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+      author_id UUID NOT NULL,
+      description TEXT,
+      image VARCHAR(255),
+      FOREIGN KEY (author_id) REFERENCES Users(id) ON DELETE CASCADE
+    )
+  `;
+
+  await Promise.all(
+    posts.map(async (post) => {
+      await sql`
+      INSERT INTO Posts (id, author_id, description, image)
+      VALUES (${post.id}, ${post.author_id}, ${post.description ?? null}, ${post.image ?? null})
+      ON CONFLICT (id) DO NOTHING
+    `;
+    }),
+  );
+}
+
+async function seedComments() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS Comments(
+      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+      author_id UUID NOT NULL,
+      post_id UUID NOT NULL,
+      description TEXT NOT NULL,
+      FOREIGN KEY (author_id) REFERENCES Users(id) ON DELETE CASCADE,
+      FOREIGN KEY (post_id) REFERENCES Posts(id) ON DELETE CASCADE
+    ) 
+  `;
+
+  await Promise.all(
+    comments.map(async (comment) => {
+      await sql`
+          INSERT INTO Comments (id, author_id, post_id, description)
+          VALUES (${comment.id}, ${comment.author_id}, ${comment.post_id}, ${comment.description})
+          ON CONFLICT (id) DO NOTHING
+        `;
+    }),
+  );
+}
+
+async function seedPostReactions() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS PostReactions (
+      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+      post_id UUID NOT NULL,
+      user_id UUID NOT NULL,
+      type VARCHAR(50) CHECK (type IN ('like', 'dislike', 'crying', 'laughing', 'vomiting', 'angry', 'boring')),
+      FOREIGN KEY (post_id) REFERENCES Posts(id) ON DELETE CASCADE,
+      FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+    )
+  `;
+
+  await Promise.all(
+    postReactions.map(async (reacts) => {
+      await sql`
+        INSERT INTO PostReactions (id, post_id, user_id, type)
+        VALUES (${reacts.id}, ${reacts.post_id}, ${reacts.user_id}, ${reacts.type})
+        ON CONFLICT (id) DO NOTHING
+      `;
+    }),
+  );
 }
 
 export async function GET() {
@@ -27,6 +97,9 @@ export async function GET() {
 
   try {
     await seedUsers();
+    await seedPosts();
+    await seedComments();
+    await seedPostReactions();
 
     return Response.json({ message: "Database successfully created!" });
   } catch (error) {

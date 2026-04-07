@@ -1,5 +1,5 @@
 import PostObject from "@/app/_ui/mainfeed/post-item";
-import { samplePosts } from "@/app/_lib/mockData";
+import { samplePosts } from "@/app/_lib/mock-data";
 
 export default function MainFeedPage() {
   return (
