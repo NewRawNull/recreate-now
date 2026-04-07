@@ -1,3 +1,5 @@
+__This is a test or educational by NewRawNull. Everything written here is not yet ready for production... let alone published or deployed for public use.__
+
 # Recreate NOW
 
 _"For extroverted, low-attention span, hyperflexing stakeholders"_
