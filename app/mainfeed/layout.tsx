@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import FunctionBar from "@/app/ui/function-bar";
+import FunctionBar from "@/app/_ui/function-bar";
 
 export const metadata: Metadata = {
   title: "NOW Home Recreations",
@@ -7,8 +7,10 @@ export const metadata: Metadata = {
 
 export default function FeedLayout({
   children,
+  popup,
 }: Readonly<{
   children: React.ReactNode;
+  popup: React.ReactNode;
 }>) {
   return (
     <div className="grid grid-cols-[250px_1fr]">
@@ -16,7 +18,10 @@ export default function FeedLayout({
         <FunctionBar />
       </aside>
 
-      <main>{children}</main>
+      <main>
+        {children}
+        {popup}
+      </main>
     </div>
   );
 }

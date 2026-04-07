@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FunctionBarLink } from "@/app/lib/definitions";
+import { FunctionBarLink } from "@/app/_lib/definitions";
 
 export default function FLink({ icon: Icon, name, href }: FunctionBarLink) {
   return (

@@ -1,4 +1,4 @@
-import type { Reacts } from "@/app/lib/definitions";
+import type { Reacts } from "@/app/_lib/definitions";
 import {
   FaThumbsUp,
   FaThumbsDown,

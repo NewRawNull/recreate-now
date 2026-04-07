@@ -1,4 +1,4 @@
-import { UserReview } from "@/app/lib/definitions";
+import { UserReview } from "@/app/_lib/definitions";
 
 export const mockUserReviews: UserReview[] = [
   {

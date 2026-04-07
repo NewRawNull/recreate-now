@@ -40,6 +40,7 @@ export type Comment = {
 
 export type PostItem = {
   // Main Post Type
+  id: string;
   author: string;
   description?: string;
   image?: string;

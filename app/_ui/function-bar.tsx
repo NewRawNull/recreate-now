@@ -1,9 +1,9 @@
-import { FunctionBarLinks } from "@/app/lib/definitions";
+import { FunctionBarLinks } from "@/app/_lib/definitions";
 import { FaHome, FaSearch } from "react-icons/fa";
 import { IoMdTrendingUp } from "react-icons/io";
 import { BiSolidCategory } from "react-icons/bi";
 import { MdLogout } from "react-icons/md";
-import FLink from "@/app/ui/function-bar/link";
+import FLink from "@/app/_ui/function-bar/link";
 import clsx from "clsx";
 
 const linkButtons: FunctionBarLinks = [
