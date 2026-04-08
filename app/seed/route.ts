@@ -1,5 +1,11 @@
 import sql from "@/app/_lib/db";
-import { comments, postReactions, posts, users } from "@/app/_lib/mock-data";
+import {
+  commentReactions,
+  comments,
+  postReactions,
+  posts,
+  users,
+} from "@/app/_lib/mock-data";
 import bcrypt from "bcrypt";
 
 // NOTE: ONLY RUN localhost:3000/seed ONCE
@@ -76,7 +82,8 @@ async function seedPostReactions() {
       user_id UUID NOT NULL,
       type VARCHAR(50) CHECK (type IN ('like', 'dislike', 'crying', 'laughing', 'vomiting', 'angry', 'boring')),
       FOREIGN KEY (post_id) REFERENCES Posts(id) ON DELETE CASCADE,
-      FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+      FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+      UNIQUE (post_id, user_id)
     )
   `;
 
@@ -91,6 +98,30 @@ async function seedPostReactions() {
   );
 }
 
+async function seedCommentReactions() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS CommentReactions(
+      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+      comment_id UUID NOT NULL,
+      user_id UUID NOT NULL,
+      type VARCHAR(50) NOT NULL CHECK (type IN ('like', 'dislike')),
+      FOREIGN KEY (comment_id) REFERENCES Comments(id) ON DELETE CASCADE,
+      FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+      UNIQUE (comment_id, user_id)
+    )
+  `;
+
+  await Promise.all(
+    commentReactions.map(async (reacts) => {
+      await sql`
+        INSERT INTO CommentReactions (id, comment_id, user_id, type)
+        VALUES (${reacts.id}, ${reacts.comment_id}, ${reacts.user_id}, ${reacts.type})
+        ON CONFLICT (comment_id, user_id) DO NOTHING
+      `;
+    }),
+  );
+}
+
 export async function GET() {
   if (process.env.NODE_ENV === "production")
     return Response.json({ message: "Bad Request" }, { status: 400 });
@@ -100,6 +131,7 @@ export async function GET() {
     await seedPosts();
     await seedComments();
     await seedPostReactions();
+    await seedCommentReactions();
 
     return Response.json({ message: "Database successfully created!" });
   } catch (error) {

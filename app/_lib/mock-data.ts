@@ -4,6 +4,7 @@ import type {
   DbUser,
   DbComment,
   DbPostReaction,
+  DbCommentReaction,
 } from "@/app/_lib/definitions";
 
 export const samplePosts: PostItem[] = [
@@ -285,5 +286,134 @@ export const postReactions: DbPostReaction[] = [
     post_id: "ec09e1e4-4862-43b9-b36a-ce4fd1e3950f",
     user_id: "a3936d10-c22e-4e85-9953-8e91f94bdd9a",
     type: "crying",
+  },
+];
+
+export const commentReactions: DbCommentReaction[] = [
+  {
+    id: "23be8f65-a497-44ea-b3d1-2c9b3960dad3",
+    comment_id: "472f1933-125f-4625-b367-39ac06e7aff8",
+    user_id: "b47281d3-84fb-481b-8bbb-817467f5e379",
+    type: "dislike",
+  },
+  {
+    id: "b5b973b0-9e11-4c3f-b325-48c24640a707",
+    comment_id: "472f1933-125f-4625-b367-39ac06e7aff8",
+    user_id: "16692164-83c1-4a3e-83f3-8904e5958d22",
+    type: "like",
+  },
+  {
+    id: "441575c1-e19d-4d1d-904e-036211194975",
+    comment_id: "472f1933-125f-4625-b367-39ac06e7aff8",
+    user_id: "8cfe5b1f-1d1c-4eda-9a56-978d0b376677",
+    type: "like",
+  },
+  {
+    id: "0c279d0c-29fc-4f15-8234-5a1ceb28cbe3",
+    comment_id: "ea30d324-96ab-4201-b5ab-6847f1e71033",
+    user_id: "73dc420f-27ac-4ea7-a7d3-10a034b92977",
+    type: "like",
+  },
+  {
+    id: "fcf892af-176c-48f3-b07f-6b75dc054421",
+    comment_id: "ea30d324-96ab-4201-b5ab-6847f1e71033",
+    user_id: "8cda66cb-80d5-4b05-b6b5-4f79d445d6a5",
+    type: "like",
+  },
+  {
+    id: "df7f6a89-09c0-4de9-9794-4c303c72514f",
+    comment_id: "ea30d324-96ab-4201-b5ab-6847f1e71033",
+    user_id: "16692164-83c1-4a3e-83f3-8904e5958d22",
+    type: "dislike",
+  },
+  {
+    id: "31c12d8c-890e-44a6-9fe2-b8f30a263c21",
+    comment_id: "c821accd-c192-43be-81cd-f5cc5b7e2d70",
+    user_id: "1c3e2b57-3969-4c0c-9951-203656f841e2",
+    type: "like",
+  },
+  {
+    id: "c4218cc3-e2d9-4871-94f9-3820cef03b36",
+    comment_id: "c821accd-c192-43be-81cd-f5cc5b7e2d70",
+    user_id: "3024775f-be33-48da-8113-d50a1fad8dca",
+    type: "like",
+  },
+  {
+    id: "dc22fe85-7a3a-4f50-a05b-e844a69ea453",
+    comment_id: "895efcba-3bfe-429b-a3a7-b0f973bf192b",
+    user_id: "73dc420f-27ac-4ea7-a7d3-10a034b92977",
+    type: "dislike",
+  },
+  {
+    id: "f3c3418e-e902-4f2d-a681-721a71a9a25f",
+    comment_id: "895efcba-3bfe-429b-a3a7-b0f973bf192b",
+    user_id: "8b9d4060-97c0-4ff1-9263-c21855a92033",
+    type: "like",
+  },
+  {
+    id: "2cf28d3c-8b9d-4f88-9e55-49f4110f7058",
+    comment_id: "b8eba871-5cd9-4394-94ff-a72bb5e37313",
+    user_id: "1c3e2b57-3969-4c0c-9951-203656f841e2",
+    type: "dislike",
+  },
+  {
+    id: "2af77285-bdc7-44ea-971c-11bbc7ad2a69",
+    comment_id: "b8eba871-5cd9-4394-94ff-a72bb5e37313",
+    user_id: "a3936d10-c22e-4e85-9953-8e91f94bdd9a",
+    type: "dislike",
+  },
+  {
+    id: "4697ae6d-a685-4e8e-bc9b-7da6f53a2a9d",
+    comment_id: "b8eba871-5cd9-4394-94ff-a72bb5e37313",
+    user_id: "8b9d4060-97c0-4ff1-9263-c21855a92033",
+    type: "dislike",
+  },
+  {
+    id: "c54874c2-ab8f-4376-aa75-57fe586e470f",
+    comment_id: "8513198f-83fa-4f99-aeef-e0132be2b84a",
+    user_id: "1c3e2b57-3969-4c0c-9951-203656f841e2",
+    type: "like",
+  },
+  {
+    id: "5768c5e0-c069-4169-9499-fd65f63a6f75",
+    comment_id: "8513198f-83fa-4f99-aeef-e0132be2b84a",
+    user_id: "ceb82e4f-87f0-4bf4-ab12-bc08081f8ddc",
+    type: "like",
+  },
+  {
+    id: "4d40cd34-357e-4fcf-b219-89dfc67b36f9",
+    comment_id: "3d90915e-50ed-43ba-883f-834d097e9b79",
+    user_id: "b47281d3-84fb-481b-8bbb-817467f5e379",
+    type: "like",
+  },
+  {
+    id: "fed0e216-6711-4afd-9e65-158bba3271af",
+    comment_id: "3d90915e-50ed-43ba-883f-834d097e9b79",
+    user_id: "1c3e2b57-3969-4c0c-9951-203656f841e2",
+    type: "dislike",
+  },
+  {
+    id: "8c6bfc83-3c14-4177-93bb-3628e1e693e7",
+    comment_id: "3d90915e-50ed-43ba-883f-834d097e9b79",
+    user_id: "8b9d4060-97c0-4ff1-9263-c21855a92033",
+    type: "dislike",
+  },
+  {
+    id: "6482e96b-3211-4aa0-8a0b-ee68fef751ee",
+    comment_id: "7e87f1a8-44d4-418e-b41e-c0eab2e57f3f",
+    user_id: "1c3e2b57-3969-4c0c-9951-203656f841e2",
+    type: "like",
+  },
+  {
+    id: "a1cf3744-c86b-4612-8ee3-3594bbfa01e6",
+    comment_id: "7e87f1a8-44d4-418e-b41e-c0eab2e57f3f",
+    user_id: "8cfe5b1f-1d1c-4eda-9a56-978d0b376677",
+    type: "like",
+  },
+  {
+    id: "cdbed241-73aa-47ed-9211-8fce16f82a47",
+    comment_id: "7e87f1a8-44d4-418e-b41e-c0eab2e57f3f",
+    user_id: "b47281d3-84fb-481b-8bbb-817467f5e379",
+    type: "dislike",
   },
 ];
