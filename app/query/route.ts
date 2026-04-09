@@ -11,7 +11,6 @@ export async function GET() {
     const item = await sql`
       WITH CommentedPost AS (
         SELECT
-          Users.id AS userId,
           Users.name AS userName,
           Posts.id AS postId,
           Posts.description AS postDescription

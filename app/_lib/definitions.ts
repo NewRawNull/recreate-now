@@ -54,27 +54,27 @@ export type PostItem = {
 export type DbUser = {
   id: string;
   name: string;
-  password_hash: string;
+  passwordHash: string;
 };
 
 export type DbPost = {
   id: string;
-  author_id: string; // FOREIGN => dbUser.id
+  authorId: string; // FOREIGN => dbUser.id
   description?: string;
   image?: string;
 };
 
 export type DbComment = {
   id: string;
-  author_id: string; // FOREIGN => dbUser.id
-  post_id: string; // FOREIGN => dbPost.id
+  authorId: string; // FOREIGN => dbUser.id
+  postId: string; // FOREIGN => dbPost.id
   description: string;
 };
 
 export type DbPostReaction = {
   id: string;
-  post_id: string; // FOREIGN => dbPost.id
-  user_id: string; // FOREIGN => dbUser.id
+  postId: string; // FOREIGN => dbPost.id
+  userId: string; // FOREIGN => dbUser.id
   type:
     | "like"
     | "dislike"
@@ -87,7 +87,22 @@ export type DbPostReaction = {
 
 export type DbCommentReaction = {
   id: string;
-  comment_id: string; // FOREIGN => dbComment.id
-  user_id: string; // FOREIGN => dbUser.id
+  commentId: string; // FOREIGN => dbComment.id
+  userId: string; // FOREIGN => dbUser.id
   type: "like" | "dislike";
+};
+
+/* Post Content Definitions (Newer) */
+export type PostData = {
+  postId: string;
+  description: string;
+  authorName: string;
+  image: string;
+  likesCount: number;
+  dislikesCount: number;
+  cryingCount: number;
+  laughingCount: number;
+  vomitingCount: number;
+  angryCount: number;
+  boringCount: number;
 };

@@ -1,4 +1,4 @@
-import type { Reacts } from "@/app/_lib/definitions";
+import type { PostData } from "@/app/_lib/definitions";
 import {
   FaThumbsUp,
   FaThumbsDown,
@@ -10,22 +10,34 @@ import {
 import { GiVomiting } from "react-icons/gi";
 import { IconType } from "react-icons";
 
-const reactMap: { key: keyof Reacts; icon: IconType }[] = [
-  { key: "likes", icon: FaThumbsUp },
-  { key: "dislikes", icon: FaThumbsDown },
-  { key: "laughing", icon: FaLaughSquint },
-  { key: "angry", icon: FaAngry },
-  { key: "crying", icon: FaSadTear },
-  { key: "boring", icon: FaMeh },
-  { key: "vomiting", icon: GiVomiting },
+type ReactionCounts = Omit<
+  PostData,
+  "postId" | "description" | "authorName" | "image"
+>;
+
+const reactMap: {
+  key: keyof ReactionCounts;
+  icon: IconType;
+}[] = [
+  { key: "likesCount", icon: FaThumbsUp },
+  { key: "dislikesCount", icon: FaThumbsDown },
+  { key: "laughingCount", icon: FaLaughSquint },
+  { key: "angryCount", icon: FaAngry },
+  { key: "cryingCount", icon: FaSadTear },
+  { key: "boringCount", icon: FaMeh },
+  { key: "vomitingCount", icon: GiVomiting },
 ];
 
-export default function PostReacts({ reactions }: { reactions: Reacts }) {
+export default function PostReacts({
+  reactions,
+}: {
+  reactions: ReactionCounts;
+}) {
   return (
     <div className="flex gap-3">
       {reactMap.map(({ key, icon: Icon }) =>
-        reactions[key] !== undefined ? (
-          <div key={key} className="flex items-center gap-1">
+        reactions[key] > 0 ? (
+          <div key={key} className="flex items-center gap-1 text-gray-700">
             <Icon />
             <span>{reactions[key]}</span>
           </div>

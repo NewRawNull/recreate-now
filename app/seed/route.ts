@@ -11,19 +11,19 @@ import bcrypt from "bcrypt";
 // NOTE: ONLY RUN localhost:3000/seed ONCE
 
 async function seedUsers() {
-  await sql`CREATE TABLE IF NOT EXISTS Users (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    password TEXT NOT NULL
+  await sql`CREATE TABLE IF NOT EXISTS "Users" (
+    "id" UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    "name" VARCHAR(255) NOT NULL,
+    "passwordHash" TEXT NOT NULL
   );`;
 
   await Promise.all(
     users.map(async (user) => {
-      const hashedPassword = await bcrypt.hash(user.password_hash, 10);
+      const hashedPassword = await bcrypt.hash(user.passwordHash, 10);
       await sql`
-        INSERT INTO Users (id, name, password)
+        INSERT INTO "Users" ("id", "name", "passwordHash")
         VALUES (${user.id}, ${user.name}, ${hashedPassword})
-        ON CONFLICT (id) DO NOTHING
+        ON CONFLICT ("id") DO NOTHING
       `;
     }),
   );
@@ -31,21 +31,21 @@ async function seedUsers() {
 
 async function seedPosts() {
   await sql`
-    CREATE TABLE IF NOT EXISTS Posts (
-      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-      author_id UUID NOT NULL,
-      description TEXT,
-      image VARCHAR(255),
-      FOREIGN KEY (author_id) REFERENCES Users(id) ON DELETE CASCADE
+    CREATE TABLE IF NOT EXISTS "Posts" (
+      "id" UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+      "authorId" UUID NOT NULL,
+      "description" TEXT,
+      "image" VARCHAR(255),
+      FOREIGN KEY ("authorId") REFERENCES "Users"("id") ON DELETE CASCADE
     )
   `;
 
   await Promise.all(
     posts.map(async (post) => {
       await sql`
-      INSERT INTO Posts (id, author_id, description, image)
-      VALUES (${post.id}, ${post.author_id}, ${post.description ?? null}, ${post.image ?? null})
-      ON CONFLICT (id) DO NOTHING
+      INSERT INTO "Posts" ("id", "authorId", "description", "image")
+      VALUES (${post.id}, ${post.authorId}, ${post.description ?? null}, ${post.image ?? null})
+      ON CONFLICT ("id") DO NOTHING
     `;
     }),
   );
@@ -53,22 +53,22 @@ async function seedPosts() {
 
 async function seedComments() {
   await sql`
-    CREATE TABLE IF NOT EXISTS Comments(
-      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-      author_id UUID NOT NULL,
-      post_id UUID NOT NULL,
-      description TEXT NOT NULL,
-      FOREIGN KEY (author_id) REFERENCES Users(id) ON DELETE CASCADE,
-      FOREIGN KEY (post_id) REFERENCES Posts(id) ON DELETE CASCADE
+    CREATE TABLE IF NOT EXISTS "Comments"(
+      "id" UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+      "authorId" UUID NOT NULL,
+      "postId" UUID NOT NULL,
+      "description" TEXT NOT NULL,
+      FOREIGN KEY ("authorId") REFERENCES "Users"("id") ON DELETE CASCADE,
+      FOREIGN KEY ("postId") REFERENCES "Posts"("id") ON DELETE CASCADE
     ) 
   `;
 
   await Promise.all(
     comments.map(async (comment) => {
       await sql`
-          INSERT INTO Comments (id, author_id, post_id, description)
-          VALUES (${comment.id}, ${comment.author_id}, ${comment.post_id}, ${comment.description})
-          ON CONFLICT (id) DO NOTHING
+          INSERT INTO "Comments" ("id", "authorId", "postId", "description")
+          VALUES (${comment.id}, ${comment.authorId}, ${comment.postId}, ${comment.description})
+          ON CONFLICT ("id") DO NOTHING
         `;
     }),
   );
@@ -76,23 +76,23 @@ async function seedComments() {
 
 async function seedPostReactions() {
   await sql`
-    CREATE TABLE IF NOT EXISTS PostReactions (
-      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-      post_id UUID NOT NULL,
-      user_id UUID NOT NULL,
-      type VARCHAR(50) CHECK (type IN ('like', 'dislike', 'crying', 'laughing', 'vomiting', 'angry', 'boring')),
-      FOREIGN KEY (post_id) REFERENCES Posts(id) ON DELETE CASCADE,
-      FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
-      UNIQUE (post_id, user_id)
+    CREATE TABLE IF NOT EXISTS "PostReactions" (
+      "id" UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+      "postId" UUID NOT NULL,
+      "userId" UUID NOT NULL,
+      "type" VARCHAR(50) CHECK ("type" IN ('like', 'dislike', 'crying', 'laughing', 'vomiting', 'angry', 'boring')),
+      FOREIGN KEY ("postId") REFERENCES "Posts"("id") ON DELETE CASCADE,
+      FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE CASCADE,
+      UNIQUE ("postId", "userId")
     )
   `;
 
   await Promise.all(
     postReactions.map(async (reacts) => {
       await sql`
-        INSERT INTO PostReactions (id, post_id, user_id, type)
-        VALUES (${reacts.id}, ${reacts.post_id}, ${reacts.user_id}, ${reacts.type})
-        ON CONFLICT (id) DO NOTHING
+        INSERT INTO "PostReactions" ("id", "postId", "userId", "type")
+        VALUES (${reacts.id}, ${reacts.postId}, ${reacts.userId}, ${reacts.type})
+        ON CONFLICT ("id") DO NOTHING
       `;
     }),
   );
@@ -100,23 +100,23 @@ async function seedPostReactions() {
 
 async function seedCommentReactions() {
   await sql`
-    CREATE TABLE IF NOT EXISTS CommentReactions(
-      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-      comment_id UUID NOT NULL,
-      user_id UUID NOT NULL,
-      type VARCHAR(50) NOT NULL CHECK (type IN ('like', 'dislike')),
-      FOREIGN KEY (comment_id) REFERENCES Comments(id) ON DELETE CASCADE,
-      FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
-      UNIQUE (comment_id, user_id)
+    CREATE TABLE IF NOT EXISTS "CommentReactions"(
+      "id" UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+      "commentId" UUID NOT NULL,
+      "userId" UUID NOT NULL,
+      "type" VARCHAR(50) NOT NULL CHECK ("type" IN ('like', 'dislike')),
+      FOREIGN KEY ("commentId") REFERENCES "Comments"("id") ON DELETE CASCADE,
+      FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE CASCADE,
+      UNIQUE ("commentId", "userId")
     )
   `;
 
   await Promise.all(
     commentReactions.map(async (reacts) => {
       await sql`
-        INSERT INTO CommentReactions (id, comment_id, user_id, type)
-        VALUES (${reacts.id}, ${reacts.comment_id}, ${reacts.user_id}, ${reacts.type})
-        ON CONFLICT (comment_id, user_id) DO NOTHING
+        INSERT INTO "CommentReactions" ("id", "commentId", "userId", "type")
+        VALUES (${reacts.id}, ${reacts.commentId}, ${reacts.userId}, ${reacts.type})
+        ON CONFLICT ("commentId", "userId") DO NOTHING
       `;
     }),
   );
