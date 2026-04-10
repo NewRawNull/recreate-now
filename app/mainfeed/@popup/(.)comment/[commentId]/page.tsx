@@ -1,14 +1,15 @@
 import CloseButton from "@/app/_ui/mainfeed/close-popup";
-import { samplePosts } from "@/app/_lib/mock-data";
 import CommentBlock from "@/app/_ui/mainfeed/comment";
+import { loadComments } from "@/app/_lib/query";
+import { CommentData } from "@/app/_lib/definitions";
 
 export default async function PopupElement({
   params,
 }: {
   params: Promise<{ commentId: string }>;
 }) {
-  const uuid = (await params).commentId;
-  const matchedPost = samplePosts.find((post) => post.id === uuid);
+  const uuid: string = (await params).commentId;
+  const comments: CommentData[] = await loadComments(uuid);
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex flex-col items-center justify-center">
@@ -17,7 +18,7 @@ export default async function PopupElement({
         <h1 className="font-bold text-2xl font-roboto-condensed mb-3">
           Comments
         </h1>
-        <CommentBlock post={matchedPost} />
+        <CommentBlock commentsArray={comments} />
       </div>
     </div>
   );

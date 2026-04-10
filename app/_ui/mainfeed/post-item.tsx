@@ -1,4 +1,4 @@
-import type { PostData, PostItem } from "@/app/_lib/definitions";
+import type { PostData } from "@/app/_lib/definitions";
 import Image from "next/image";
 import PostReacts from "@/app/_ui/mainfeed/reacts";
 import { IoChatbubble } from "react-icons/io5";

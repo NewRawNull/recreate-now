@@ -1,5 +1,5 @@
 import sql from "@/app/_lib/db";
-import { PostData } from "@/app/_lib/definitions";
+import { CommentData, PostData } from "@/app/_lib/definitions";
 
 // I might be overengineering so bear with me
 export async function loadPosts() {
@@ -28,4 +28,28 @@ export async function loadPosts() {
   `;
 
   return posts;
+}
+
+export async function loadComments(postId: string) {
+  const comments: CommentData[] = await sql`
+    SELECT
+      "Comments"."id" AS "commentId",
+      "Users"."name" AS "authorName",
+      "Comments"."description",
+      COUNT("CommentReactions"."id") FILTER (WHERE "CommentReactions"."type" = 'like')::int AS "likesCount",
+      COUNT("CommentReactions"."id") FILTER (WHERE "CommentReactions"."type" = 'dislike')::int AS "dislikesCount"
+    FROM "Comments"
+    JOIN "Users"
+      ON "Users"."id" = "Comments"."authorId"
+    LEFT JOIN "CommentReactions"
+      ON "CommentReactions"."commentId" = "Comments"."id"
+    WHERE
+      "Comments"."postId" = ${postId}
+    GROUP BY
+      "Comments"."id",
+      "Users"."name",
+      "Comments"."description";
+  `;
+
+  return comments;
 }
