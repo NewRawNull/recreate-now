@@ -2,6 +2,19 @@ import sql from "@/app/_lib/db";
 import { CommentData, PostData } from "@/app/_lib/definitions";
 
 // I might be overengineering so bear with me
+export async function getUserLogged(username: string) {
+  const user = await sql`
+    SELECT
+      "Users"."id" AS "id", 
+      "Users"."name" AS "username",
+      "Users"."passwordHash" AS "passwordHash"
+    FROM "Users"
+    WHERE "Users"."name" = ${username};
+  `;
+
+  return user[0] ?? null;
+}
+
 export async function loadPosts() {
   const posts: PostData[] = await sql`
     SELECT 
