@@ -36,9 +36,15 @@ export default function LoginForm() {
           className="bg-white text-black p-1.5 col-span-2 outline-black outline-1 focus:outline-2 focus:bg-gray-200"
         />
       </div>
-      <div className="flex flex-row justify-between items-center w-full">
+      <div className="flex flex-row gap-10 justify-between items-center w-full">
         <Link href="/" className="underline text-gray-600 hover:text-gray-800">
           Go back
+        </Link>
+        <Link
+          href="/signup"
+          className="underline text-gray-600 hover:text-gray-800"
+        >
+          New account?
         </Link>
         <input
           type="submit"

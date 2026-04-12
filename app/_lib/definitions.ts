@@ -1,4 +1,5 @@
 import type { IconType } from "react-icons";
+import z from "zod";
 
 export type UserReview = {
   name: string;
@@ -14,6 +15,34 @@ export type FunctionBarLink = {
 };
 
 export type FunctionBarLinks = FunctionBarLink[];
+
+/* Signup types */
+export const SignupFormSchema = z.object({
+  username: z
+    .string()
+    .min(4, { error: "Username must be at least 2 characters." })
+    .trim(),
+  password: z
+    .string()
+    .min(8, { error: "Password must be at least 8 characters." })
+    .regex(/[a-zA-Z]/, { error: "Password must have at least 1 letter." })
+    .regex(/[0-9]/, { error: "Password must have at least 1 number." })
+    .regex(/[^a-zA-Z0-9]/, {
+      error: "Password must have at least 1 special character.",
+    })
+    .trim(),
+});
+
+export type FormState =
+  | {
+      errors?: {
+        username?: string[];
+        password?: string[];
+      };
+      message?: string;
+      success?: string;
+    }
+  | undefined;
 
 /* Database types */
 /* Thought process? Should I use NoSQL instead of this Goofy Ahh database */

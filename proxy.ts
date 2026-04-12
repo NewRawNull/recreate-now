@@ -1,9 +1,7 @@
-import { auth as loginHandlerMiddleware } from "@/auth";
+import { auth as loginHandlerProxy } from "@/auth";
 import { NextResponse } from "next/server";
 
-export const runtime = "nodejs";
-
-export default loginHandlerMiddleware((req) => {
+export default loginHandlerProxy((req) => {
   if (!req.auth) {
     return NextResponse.redirect(new URL("/login", req.url));
   }

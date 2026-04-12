@@ -1,7 +1,21 @@
 import sql from "@/app/_lib/db";
 import { CommentData, PostData } from "@/app/_lib/definitions";
+import bcrypt from "bcrypt";
 
 // I might be overengineering so bear with me
+export async function addUser(username: string, password: string) {
+  const passwordHash = await bcrypt.hash(password, 10);
+
+  const user = await sql`
+    INSERT INTO "Users" ("name", "passwordHash")
+    VALUES (${username}, ${passwordHash})
+    ON CONFLICT ("name") DO NOTHING
+    RETURNING "name";
+  `;
+
+  return user[0];
+}
+
 export async function getUserLogged(username: string) {
   const user = await sql`
     SELECT

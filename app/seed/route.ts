@@ -13,7 +13,7 @@ import bcrypt from "bcrypt";
 async function seedUsers() {
   await sql`CREATE TABLE IF NOT EXISTS "Users" (
     "id" UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    "name" VARCHAR(255) NOT NULL,
+    "name" VARCHAR(255) NOT NULL UNIQUE,
     "passwordHash" TEXT NOT NULL
   );`;
 
