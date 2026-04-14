@@ -61,8 +61,8 @@ export default function PostObject({
           />
         )}
         <Link
-          className="flex flex-row gap-3 text-white bg-gray-600 items-center justify-between p-2 rounded hover:bg-gray-700 active:bg-gray-800 cursor-pointer"
-          href={`mainfeed/comment/${postId}`}
+          className="flex flex-row gap-3 text-white bg-gray-800 items-center justify-between p-2 rounded hover:bg-white hover:text-gray-800 cursor-pointer duration-200 outline outline-gray-800"
+          href={`/mainfeed/comment/${postId}`}
         >
           <IoChatbubble />
           Comments

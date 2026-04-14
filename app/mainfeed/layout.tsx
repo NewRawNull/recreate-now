@@ -20,7 +20,7 @@ export default function FeedLayout({
       </aside>
 
       <main>
-        <nav className="sticky top-0">
+        <nav className="sticky top-0 z-50">
           <ContentingBar />
         </nav>
         {children}
