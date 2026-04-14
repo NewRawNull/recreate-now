@@ -32,7 +32,7 @@ export default function PostObject({
               src={image}
               alt={`Image posted by ${authorName}... unloaded unfortunately`}
               fill
-              className="object-contain rounded"
+              className="object-contain rounded -z-50"
             />
           </div>
         )}

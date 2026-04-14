@@ -44,6 +44,13 @@ export type FormState =
     }
   | undefined;
 
+export type CreateFormState =
+  | {
+      errors?: string;
+      success?: string;
+    }
+  | undefined;
+
 /* Database types */
 /* Thought process? Should I use NoSQL instead of this Goofy Ahh database */
 export type DbUser = {

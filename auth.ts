@@ -30,6 +30,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
 
   callbacks: {
+    async authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+
+      const protectedRoutes = ["/mainfeed", "/settings"];
+      const isProtected = protectedRoutes.some((route) => {
+        nextUrl.basePath.startsWith(route);
+      });
+      if (isProtected && !isLoggedIn) {
+        return Response.redirect(new URL("/login", nextUrl));
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;

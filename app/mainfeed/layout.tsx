@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import FunctionBar from "@/app/_ui/function-bar";
+import ContentingBar from "@/app/_ui/mainfeed/contenting-bar";
 
 export const metadata: Metadata = {
   title: "NOW Home Recreations",
@@ -19,6 +20,9 @@ export default function FeedLayout({
       </aside>
 
       <main>
+        <nav className="sticky top-0">
+          <ContentingBar />
+        </nav>
         {children}
         {popup}
       </main>

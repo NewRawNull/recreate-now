@@ -4,7 +4,6 @@ import { FormState, SignupFormSchema } from "@/app/_lib/definitions";
 import { addUser } from "@/app/_lib/query";
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
-import { redirect } from "next/navigation";
 
 export async function loginAction(prevState: unknown, formData: FormData) {
   try {

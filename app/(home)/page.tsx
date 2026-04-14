@@ -1,6 +1,6 @@
 import Image from "next/image";
 import LinkedButton from "@/app/_ui/home/button";
-import { mockUserReviews } from "@/app/_lib/data";
+import { mockUserReviews } from "@/app/_lib/mock-data";
 import UserReview from "@/app/_ui/home/user-review";
 
 export default function Home() {

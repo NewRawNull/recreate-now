@@ -1,3 +1,5 @@
+"use server";
+
 import sql from "@/app/_lib/db";
 import { CommentData, PostData } from "@/app/_lib/definitions";
 import bcrypt from "bcrypt";
@@ -79,4 +81,15 @@ export async function loadComments(postId: string) {
   `;
 
   return comments;
+}
+
+export async function addPost(
+  authorId: string,
+  description: string,
+  image: string | null,
+) {
+  await sql`
+    INSERT INTO "Posts" ("authorId", "description", "image")
+    VALUES (${authorId}, ${description}, ${image});
+  `;
 }
