@@ -18,7 +18,7 @@ export default function PostObject({
   boringCount,
 }: PostData) {
   return (
-    <div className="w-full p-4 rounded outline-2 outline-gray-400 font-roboto flex flex-col">
+    <div className="w-full p-4 rounded outline-2 outline-gray-800 font-roboto flex flex-col">
       <div className="pb-5 mb-5 border-b-gray-400 border-b">
         <h1 className="font-bold">
           {authorName} <span className="font-normal text-gray-700">posted</span>

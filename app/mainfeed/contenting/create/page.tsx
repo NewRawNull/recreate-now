@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import CreatePostForm from "@/app/_ui/mainfeed/create-post-form";
+import CreatePostForm from "@/app/_ui/mainfeed/create/create-post-form";
 
 export default function CreatePage() {
   return (
