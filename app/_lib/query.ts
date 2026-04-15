@@ -3,6 +3,7 @@
 import sql from "@/app/_lib/db";
 import { CommentData, PostData } from "@/app/_lib/definitions";
 import bcrypt from "bcrypt";
+import { Row } from "postgres";
 
 // I might be overengineering so bear with me
 export async function addUser(username: string, password: string) {
@@ -92,4 +93,39 @@ export async function addPost(
     INSERT INTO "Posts" ("authorId", "description", "image")
     VALUES (${authorId}, ${description}, ${image});
   `;
+}
+
+export async function loadFivePost(authorId: string, offset: number) {
+  const posts: Omit<
+    PostData,
+    | "authorName"
+    | "likesCount"
+    | "dislikesCount"
+    | "cryingCount"
+    | "laughingCount"
+    | "vomitingCount"
+    | "angryCount"
+    | "boringCount"
+  >[] = await sql`
+    SELECT
+      "Posts"."id" AS "postId",
+      "Posts"."description",
+      "Posts"."image"
+    FROM "Posts"
+    WHERE "Posts"."authorId" = ${authorId}
+    LIMIT 5 OFFSET ${offset};
+  `;
+
+  return posts;
+}
+
+export async function countOwnedPost(authorId: string) {
+  const postCount: { totalCount: number }[] = await sql`
+    SELECT
+      COUNT(*)::int AS "totalCount"
+    FROM "Posts"
+    WHERE "Posts"."authorId" = ${authorId};
+  `;
+
+  return postCount[0];
 }
