@@ -1,7 +1,6 @@
 "use client";
 import { PostData } from "@/app/_lib/definitions";
 import EditEntry from "@/app/_ui/mainfeed/edit/edit-item";
-import { useState } from "react";
 
 export default function EditPostTable({
   postList,

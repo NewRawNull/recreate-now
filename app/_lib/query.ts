@@ -3,7 +3,6 @@
 import sql from "@/app/_lib/db";
 import { CommentData, PostData } from "@/app/_lib/definitions";
 import bcrypt from "bcrypt";
-import { Row } from "postgres";
 
 // I might be overengineering so bear with me
 export async function addUser(username: string, password: string) {
