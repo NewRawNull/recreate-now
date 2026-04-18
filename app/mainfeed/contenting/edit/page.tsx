@@ -17,7 +17,7 @@ export default async function EditPage({
   const offset = (page - 1) * 5;
   const posts = await loadFivePost(userId, offset);
   const { totalCount } = await countOwnedPost(userId);
-  const totalPageCount = Math.ceil(totalCount / 5);
+  const totalPageCount = Math.ceil(totalCount / 5) || 1;
 
   return (
     <div className="p-5 flex flex-col gap-5">

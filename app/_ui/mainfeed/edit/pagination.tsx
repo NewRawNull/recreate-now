@@ -2,7 +2,8 @@
 
 import { setContentArray, setPageArray } from "@/app/_lib/utils";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 export default function Pagination({
   currentPage,
@@ -11,7 +12,6 @@ export default function Pagination({
   currentPage: number;
   totalPageCount: number;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -21,7 +21,15 @@ export default function Pagination({
   const paginationString = setContentArray(pageSet);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center gap-6">
+      {currentPage !== 1 ? (
+        <Link
+          href={`${pathname}?${new URLSearchParams({ page: (currentPage - 1).toString() })}`}
+          className="flex flex-row justify-center items-center bg-white text-gray-800 hover:bg-gray-800 hover:text-white duration-200 p-2 outline outline-gray-500 leading-none rounded"
+        >
+          <FaAngleLeft size={20} />
+        </Link>
+      ) : null}
       <div className="flex flex-row rounded outline outline-gray-500 overflow-hidden">
         {paginationString.map((pageItem, idx) => {
           if (pageItem === "...") {
@@ -58,6 +66,14 @@ export default function Pagination({
           }
         })}
       </div>
+      {currentPage !== totalPageCount ? (
+        <Link
+          href={`${pathname}?${new URLSearchParams({ page: (currentPage + 1).toString() })}`}
+          className="flex flex-row justify-center items-center bg-white text-gray-800 hover:bg-gray-800 hover:text-white duration-200 p-2 outline outline-gray-500 leading-none rounded"
+        >
+          <FaAngleRight size={20} />
+        </Link>
+      ) : null}
     </div>
   );
 }
