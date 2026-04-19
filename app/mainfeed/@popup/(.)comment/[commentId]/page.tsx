@@ -13,7 +13,7 @@ export default async function PopupElement({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex flex-col items-center justify-center">
-      <CloseButton />
+      <CloseButton isRefresh={false} />
       <div className="bg-white rounded-lg p-6 w-full max-w-lg">
         <h1 className="font-bold text-2xl font-roboto-condensed mb-3">
           Comments

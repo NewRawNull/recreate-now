@@ -5,17 +5,7 @@ import EditEntry from "@/app/_ui/mainfeed/edit/edit-item";
 export default function EditPostTable({
   postList,
 }: {
-  postList: Omit<
-    PostData,
-    | "authorName"
-    | "likesCount"
-    | "dislikesCount"
-    | "cryingCount"
-    | "laughingCount"
-    | "vomitingCount"
-    | "angryCount"
-    | "boringCount"
-  >[];
+  postList: Pick<PostData, "description" | "image" | "postId">[];
 }) {
   return (
     <div className="font-roboto flex flex-col gap-5 p-5">

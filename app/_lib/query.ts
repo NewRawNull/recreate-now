@@ -94,18 +94,21 @@ export async function addPost(
   `;
 }
 
+export async function editPost(
+  postId: string,
+  authorId: string,
+  description: string,
+  image: string | null,
+) {
+  await sql`
+    UPDATE "Posts"
+    SET "description" = ${description}, "image" = ${image}
+    WHERE "id" = ${postId} AND "authorId" = ${authorId};
+  `;
+}
+
 export async function loadFivePost(authorId: string, offset: number) {
-  const posts: Omit<
-    PostData,
-    | "authorName"
-    | "likesCount"
-    | "dislikesCount"
-    | "cryingCount"
-    | "laughingCount"
-    | "vomitingCount"
-    | "angryCount"
-    | "boringCount"
-  >[] = await sql`
+  const posts: Pick<PostData, "description" | "image" | "postId">[] = await sql`
     SELECT
       "Posts"."id" AS "postId",
       "Posts"."description",
@@ -127,4 +130,20 @@ export async function countOwnedPost(authorId: string) {
   `;
 
   return postCount[0];
+}
+
+export async function loadSelectedPost(
+  postId: string,
+  currentAuthorId: string,
+) {
+  const post: Pick<PostData, "description" | "image">[] = await sql`
+    SELECT
+      "Posts"."description",
+      "Posts"."image"
+    FROM "Posts"
+    WHERE "Posts"."id" = ${postId} AND "Posts"."authorId" = ${currentAuthorId}
+    LIMIT 1;
+  `;
+
+  return post[0];
 }

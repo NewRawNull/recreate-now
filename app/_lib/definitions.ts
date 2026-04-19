@@ -44,7 +44,7 @@ export type FormState =
     }
   | undefined;
 
-export type CreateFormState =
+export type PostFormState =
   | {
       errors?: string;
       success?: string;
