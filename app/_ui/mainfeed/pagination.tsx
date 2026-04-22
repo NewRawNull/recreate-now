@@ -2,7 +2,7 @@
 
 import { setContentArray, setPageArray } from "@/app/_lib/utils";
 import Link from "next/link";
-import { redirect, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 export default function Pagination({

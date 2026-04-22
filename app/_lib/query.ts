@@ -107,6 +107,12 @@ export async function editPost(
   `;
 }
 
+export async function deletePost(postId: string, authorId: string) {
+  await sql`
+    DELETE FROM "Posts" WHERE "id" = ${postId} AND "Posts"."authorId" = ${authorId};
+  `;
+}
+
 export async function loadFivePost(authorId: string, offset: number) {
   const posts: Pick<PostData, "description" | "image" | "postId">[] = await sql`
     SELECT

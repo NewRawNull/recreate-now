@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import EditPostTable from "@/app/_ui/mainfeed/edit/edit-post-table";
 import { auth } from "@/auth";
 import { countOwnedPost, loadFivePost } from "@/app/_lib/query";
-import Pagination from "@/app/_ui/mainfeed/edit/pagination";
+import Pagination from "@/app/_ui/mainfeed/pagination";
 
 export default async function EditPage({
   searchParams,
