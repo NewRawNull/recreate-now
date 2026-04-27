@@ -22,7 +22,6 @@ export default function DeletePopup({
         <p className="pb-5 text-red-600">Deleting...</p>
       )}
 
-      {/* TODO: You ended here (no href) */}
       <div className="flex flex-row justify-between">
         <button
           className="outline outline-gray-800 rounded-md bg-gray-800 text-white mt-5 p-3 text-xl flex flex-row gap-5 cursor-pointer hover:bg-white hover:text-gray-800 duration-200"
