@@ -7,17 +7,20 @@ export const sql = postgres({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   connect_timeout: 10,
+  ssl: "require",
 });
 
 // test connection on startup
-console.log("Database loader running...");
+if (process.env.DB_HOST) {
+  console.log("Database loader running...");
 
-sql`SELECT 1`
-  .then(() => {
-    console.log("✅ Database connected");
-  })
-  .catch((err) => {
-    console.error("❌ Database connection failed:", err.message);
-  });
+  sql`SELECT 1`
+    .then(() => {
+      console.log("✅ Database connected");
+    })
+    .catch((err) => {
+      console.error("❌ Database connection failed:", err.message);
+    });
+}
 
 export default sql;
