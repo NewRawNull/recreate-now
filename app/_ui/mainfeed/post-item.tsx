@@ -1,8 +1,13 @@
+"use client";
+
 import type { PostData } from "@/app/_lib/definitions";
 import Image from "next/image";
 import PostReacts from "@/app/_ui/mainfeed/reacts";
 import { IoChatbubble } from "react-icons/io5";
 import Link from "next/link";
+import { MdAddReaction } from "react-icons/md";
+import { useState } from "react";
+import ReactOptions from "@/app/_ui/mainfeed/react-options";
 
 export default function PostObject({
   postId,
@@ -17,6 +22,8 @@ export default function PostObject({
   angryCount,
   boringCount,
 }: PostData) {
+  const [popupState, setPopupState] = useState<boolean>(false);
+
   return (
     <div className="w-full p-4 rounded outline-2 outline-gray-800 font-roboto flex flex-col">
       <div className="pb-5 mb-5 border-b-gray-400 border-b">
@@ -60,13 +67,27 @@ export default function PostObject({
             }}
           />
         )}
-        <Link
-          className="flex flex-row gap-3 text-white bg-gray-800 items-center justify-between p-2 rounded hover:bg-white hover:text-gray-800 cursor-pointer duration-200 outline outline-gray-800"
-          href={`/mainfeed/comment/${postId}`}
-        >
-          <IoChatbubble />
-          Comments
-        </Link>
+        <div className="flex flex-row gap-4 relative">
+          {popupState ? (
+            <ReactOptions className="absolute bottom-[calc(100%+10px)] right-14 bg-white outline-2 outline-gray-600 p-2 gap-3 flex flex-row animate-low2high-fade-in" />
+          ) : null}
+          <button
+            className="flex flex-row gap-3 text-white bg-gray-800 items-center justify-between p-2 rounded hover:bg-white hover:text-gray-800 cursor-pointer duration-200 outline outline-gray-800"
+            onClick={() => {
+              setPopupState(!popupState);
+            }}
+          >
+            <MdAddReaction />
+            React Options
+          </button>
+          <Link
+            className="flex flex-row gap-3 text-white bg-gray-800 items-center justify-between p-2 rounded hover:bg-white hover:text-gray-800 cursor-pointer duration-200 outline outline-gray-800"
+            href={`/mainfeed/comment/${postId}`}
+          >
+            <IoChatbubble />
+            Comments
+          </Link>
+        </div>
       </div>
     </div>
   );

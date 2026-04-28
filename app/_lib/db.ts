@@ -1,4 +1,5 @@
 import postgres from "postgres";
+import { string } from "zod";
 
 export const sql = postgres({
   host: process.env.DB_HOST,
@@ -7,7 +8,7 @@ export const sql = postgres({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   connect_timeout: 10,
-  ssl: "require",
+  ssl: "prefer",
 });
 
 // test connection on startup
