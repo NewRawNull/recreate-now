@@ -1,15 +1,22 @@
 import postgres from "postgres";
-import { string } from "zod";
 
-export const sql = postgres({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  database: process.env.DB_DATABASE,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  connect_timeout: 10,
-  ssl: "prefer",
-});
+declare global {
+  var sql: ReturnType<typeof postgres> | undefined;
+}
+
+export const sql =
+  global.sql ??
+  postgres({
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    database: process.env.DB_DATABASE,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    connect_timeout: 10,
+    ssl: "prefer",
+  });
+
+if (process.env.NODE_ENV !== "production") global.sql = sql;
 
 // test connection on startup
 if (process.env.DB_HOST) {

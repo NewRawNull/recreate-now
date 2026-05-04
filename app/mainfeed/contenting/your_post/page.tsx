@@ -16,8 +16,9 @@ export default async function YourPostPage() {
       </h1>
       {posts.map((post) => (
         <PostObject
-          key={post.postId}
+          isAllowReact={false}
           postId={post.postId}
+          key={post.postId}
           authorName={post.authorName}
           description={post.description}
           image={post.image}

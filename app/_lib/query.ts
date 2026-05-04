@@ -1,7 +1,7 @@
 "use server";
 
 import sql from "@/app/_lib/db";
-import { CommentData, PostData } from "@/app/_lib/definitions";
+import { CommentData, DbPostReaction, PostData } from "@/app/_lib/definitions";
 import bcrypt from "bcrypt";
 
 // I might be overengineering so bear with me
@@ -181,4 +181,16 @@ export async function loadSelectedPost(
   `;
 
   return post[0];
+}
+
+export async function getPostReaction(currentUserId: string, postId: string) {
+  const reaction: Pick<DbPostReaction, "type">[] = await sql`
+    SELECT
+      "PostReactions"."type"
+    FROM "PostReactions"
+    WHERE "PostReactions"."userId" = ${currentUserId} AND "PostReactions"."postId" = ${postId}
+    LIMIT 1;
+  `;
+
+  return reaction[0]?.type ?? undefined;
 }
