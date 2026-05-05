@@ -1,3 +1,6 @@
+"use client";
+
+import { updatePostReaction } from "@/app/_lib/query";
 import {
   FaThumbsDown,
   FaThumbsUp,
@@ -27,9 +30,11 @@ const inactiveClass = "text-gray-800 hover:bg-gray-800";
 export default function ReactOptions({
   className,
   yourReaction,
+  currentUserId,
 }: {
   className: string;
   yourReaction?: string;
+  currentUserId: string;
 }) {
   return (
     <div className={className}>
@@ -39,6 +44,9 @@ export default function ReactOptions({
           className={`${buttonProperties} ${
             yourReaction === type ? activeClass : inactiveClass
           }`}
+          onClick={async () => {
+            await updatePostReaction(currentUserId, type, yourReaction);
+          }}
         >
           {icon}
         </button>

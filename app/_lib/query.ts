@@ -194,3 +194,11 @@ export async function getPostReaction(currentUserId: string, postId: string) {
 
   return reaction[0]?.type ?? undefined;
 }
+
+export async function updatePostReaction(
+  currentUserId: string,
+  clickedReaction: string,
+  currentReaction?: string,
+) {
+  return;
+}

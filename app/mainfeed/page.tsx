@@ -22,11 +22,11 @@ export default async function MainFeedPage() {
       {loadedPosts.map(async (post) => {
         if (!currentUserId) return;
         const reaction = await getPostReaction(currentUserId, post.postId);
-
         return (
           <PostObject
             reaction={reaction}
             isAllowReact={true}
+            currentUserId={currentUserId}
             postId={post.postId}
             key={post.postId}
             authorName={post.authorName}

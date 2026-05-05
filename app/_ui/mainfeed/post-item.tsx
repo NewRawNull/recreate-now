@@ -12,6 +12,7 @@ import ReactOptions from "@/app/_ui/mainfeed/react-options";
 export default function PostObject({
   reaction,
   isAllowReact = true,
+  currentUserId,
   postId,
   authorName,
   description,
@@ -26,6 +27,7 @@ export default function PostObject({
 }: PostData & {
   reaction?: DbPostReaction["type"];
   isAllowReact?: boolean;
+  currentUserId?: string;
 }) {
   const [popupState, setPopupState] = useState<boolean>(false);
 
@@ -73,10 +75,11 @@ export default function PostObject({
           />
         )}
         <div className="flex flex-row gap-4 relative">
-          {popupState ? (
+          {popupState && currentUserId ? (
             <ReactOptions
               className="absolute bottom-[calc(100%+10px)] right-14 bg-white outline-2 outline-gray-600 p-2 gap-3 flex flex-row animate-low2high-fade-in"
               yourReaction={reaction}
+              currentUserId={currentUserId}
             />
           ) : null}
           {isAllowReact && (
