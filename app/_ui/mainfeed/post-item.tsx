@@ -80,6 +80,7 @@ export default function PostObject({
               className="absolute bottom-[calc(100%+10px)] right-14 bg-white outline-2 outline-gray-600 p-2 gap-3 flex flex-row animate-low2high-fade-in"
               yourReaction={reaction}
               currentUserId={currentUserId}
+              postId={postId}
             />
           ) : null}
           {isAllowReact && (

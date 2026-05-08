@@ -197,8 +197,31 @@ export async function getPostReaction(currentUserId: string, postId: string) {
 
 export async function updatePostReaction(
   currentUserId: string,
+  postId: string,
   clickedReaction: string,
   currentReaction?: string,
-) {
-  return;
+): Promise<string | undefined> {
+  if (!currentReaction) {
+    await sql`
+      INSERT INTO "PostReactions" ("postId", "userId", "type")
+      VALUES (${postId}, ${currentUserId}, ${clickedReaction})
+      ON CONFLICT ("postId", "userId") 
+      DO UPDATE SET "type" = EXCLUDED.type; 
+    `;
+    return clickedReaction;
+  }
+  if (clickedReaction === currentReaction) {
+    await sql`
+      DELETE FROM "PostReactions"
+      WHERE "userId" = ${currentUserId} AND "postId" = ${postId};
+    `;
+    return undefined;
+  } else {
+    await sql`
+      UPDATE "PostReactions"
+      SET "type" = ${clickedReaction}
+      WHERE "userId" = ${currentUserId} AND "postId" = ${postId};
+    `;
+    return clickedReaction;
+  }
 }

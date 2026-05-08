@@ -1,6 +1,7 @@
 "use client";
 
 import { updatePostReaction } from "@/app/_lib/query";
+import { useState, useTransition } from "react";
 import {
   FaThumbsDown,
   FaThumbsUp,
@@ -31,22 +32,50 @@ export default function ReactOptions({
   className,
   yourReaction,
   currentUserId,
+  postId,
 }: {
   className: string;
   yourReaction?: string;
   currentUserId: string;
+  postId: string;
 }) {
+  const [currentReaction, setCurrentReaction] = useState<string | undefined>(
+    yourReaction,
+  );
+  const [isPending, startTransition] = useTransition();
+
+  const handleReaction = (clickedType: string) => {
+    const nextReaction =
+      currentReaction === clickedType ? undefined : clickedType;
+
+    setCurrentReaction(nextReaction);
+
+    startTransition(async () => {
+      try {
+        const result = await updatePostReaction(
+          currentUserId,
+          postId,
+          clickedType,
+          currentReaction,
+        );
+        setCurrentReaction(result ?? undefined);
+      } catch (error) {
+        setCurrentReaction(yourReaction);
+        alert(`Failed to update reaction. ${error}`);
+      }
+    });
+  };
+
   return (
     <div className={className}>
       {REACTIONS.map(({ type, icon }) => (
         <button
           key={type}
+          disabled={isPending}
           className={`${buttonProperties} ${
-            yourReaction === type ? activeClass : inactiveClass
+            currentReaction === type ? activeClass : inactiveClass
           }`}
-          onClick={async () => {
-            await updatePostReaction(currentUserId, type, yourReaction);
-          }}
+          onClick={() => handleReaction(type)}
         >
           {icon}
         </button>
