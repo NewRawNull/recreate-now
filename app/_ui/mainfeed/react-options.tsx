@@ -44,7 +44,7 @@ export default function ReactOptions({
   );
   const [isPending, startTransition] = useTransition();
 
-  const handleReaction = (clickedType: string) => {
+  function handleReaction(clickedType: string) {
     const nextReaction =
       currentReaction === clickedType ? undefined : clickedType;
 
@@ -64,7 +64,7 @@ export default function ReactOptions({
         alert(`Failed to update reaction. ${error}`);
       }
     });
-  };
+  }
 
   return (
     <div className={className}>
