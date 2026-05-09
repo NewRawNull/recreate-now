@@ -2,6 +2,7 @@ import CloseButton from "@/app/_ui/mainfeed/close-popup";
 import CommentBlock from "@/app/_ui/mainfeed/comment";
 import { loadComments } from "@/app/_lib/query";
 import { CommentData } from "@/app/_lib/definitions";
+import AddComments from "@/app/_ui/mainfeed/add-comments";
 
 export default async function PopupElement({
   params,
@@ -18,6 +19,7 @@ export default async function PopupElement({
         <h1 className="font-bold text-2xl font-roboto-condensed mb-3">
           Comments
         </h1>
+        <AddComments />
         <CommentBlock commentsArray={comments} />
       </div>
     </div>
